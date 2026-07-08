@@ -25,6 +25,7 @@ class AppTheme {
           fontWeight: FontWeight.bold,
           color: AppColor.orange,
         ),
+        displaySmall: TextStyle(fontWeight: FontWeight.bold),
         bodyMedium: TextStyle(color: AppColor.textDark, fontSize: 15),
         bodySmall: TextStyle(fontSize: 13, color: AppColor.textMuted),
       ),
