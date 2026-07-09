@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:staffhub/core/app_theme.dart';
+import 'package:staffhub/screens/admin_panels/add_staff.dart';
 import 'package:staffhub/screens/admin_panels/admin_home_screen.dart';
 import 'package:staffhub/screens/admin_panels/staff_List.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: AppTheme.lightTheme,
-      home: const AdminHomeScreen(),
+      home: const AddStaff(),
     );
   }
 }

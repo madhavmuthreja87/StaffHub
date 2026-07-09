@@ -33,7 +33,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         padding: const EdgeInsets.only(
           left: 24.0,
           right: 24,
-          top: 12,
+          top: 0,
           bottom: 12,
         ),
         child: Column(
@@ -43,15 +43,18 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             const SizedBox(height: 8),
             Text(
               "Hi, Owner Name",
-              style: theme.displaySmall?.copyWith(fontWeight: FontWeight.w500),
+              style: theme.displaySmall?.copyWith(
+                fontWeight: FontWeight.w500,
+                fontSize: 24,
+              ),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   decoration: BoxDecoration(),
-                  width: MediaQuery.sizeOf(context).width / 2.3,
+                  width: MediaQuery.sizeOf(context).width / 2.31,
                   child: Card(
                     color: const Color.fromARGB(202, 252, 161, 23),
                     elevation: 8,
@@ -69,7 +72,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 ),
                 Container(
                   decoration: BoxDecoration(),
-                  width: MediaQuery.sizeOf(context).width / 2.3,
+                  width: MediaQuery.sizeOf(context).width / 2.31,
                   child: Card(
                     color: const Color.fromARGB(202, 252, 161, 23),
                     elevation: 8,

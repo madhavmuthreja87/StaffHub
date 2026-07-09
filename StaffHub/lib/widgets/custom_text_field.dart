@@ -6,16 +6,19 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      // controller: c,
-      decoration: InputDecoration(
-        filled: true,
+    return SizedBox(
+      height: 50,
+      child: TextField(
+        // controller: c,
+        decoration: InputDecoration(
+          filled: true,
 
-        labelText: title,
-        fillColor: Theme.of(context).colorScheme.surface,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(width: 2, color: Colors.grey),
+          labelText: title,
+          fillColor: Theme.of(context).colorScheme.surface,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(width: 2, color: Colors.grey),
+          ),
         ),
       ),
     );

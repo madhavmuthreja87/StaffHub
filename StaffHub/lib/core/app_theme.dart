@@ -17,7 +17,7 @@ class AppTheme {
         ),
         titleLarge: TextStyle(
           fontSize: 34,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w600,
           color: AppColor.textDark,
         ),
         titleMedium: TextStyle(
@@ -25,7 +25,7 @@ class AppTheme {
           fontWeight: FontWeight.bold,
           color: AppColor.orange,
         ),
-        displaySmall: TextStyle(fontWeight: FontWeight.bold),
+        displaySmall: TextStyle(),
         bodyMedium: TextStyle(color: AppColor.textDark, fontSize: 15),
         bodySmall: TextStyle(fontSize: 13, color: AppColor.textMuted),
       ),
