@@ -6,6 +6,7 @@ import 'package:staffhub/screens/admin_panels/staff_List.dart';
 
 import 'package:staffhub/screens/admin_panels/staff_detail.dart';
 import 'package:staffhub/screens/sign_up.dart';
+import 'package:staffhub/screens/staff_panel/staff_home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: AppTheme.lightTheme,
-      home: const StaffDetail(),
+      home: const StaffHomeScreen(),
     );
   }
 }
