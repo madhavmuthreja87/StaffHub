@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:staffhub/core/app_color.dart';
 import 'package:staffhub/providers/staff_provider.dart';
+import 'package:staffhub/screens/admin_panels/staff_detail.dart';
 
 class StaffList extends StatefulWidget {
   const StaffList({super.key});
@@ -34,21 +35,41 @@ class _StaffListState extends State<StaffList> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 14.0, right: 14, top: 8),
-        child: ListView.builder(
-          itemCount: staff.length,
-          itemBuilder: (context, index) {
-            return Card(
-              child: ListTile(
-                leading: CircleAvatar(child: Icon(Icons.person)),
-                title: Text(
-                  "${staff[index].name}",
-                  style: theme.headlineMedium,
+        child: staff.length != 0
+            ? ListView.builder(
+                itemCount: staff.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                StaffDetail(name: staff[index].name),
+                          ),
+                        );
+                      },
+                      child: ListTile(
+                        leading: CircleAvatar(child: Icon(Icons.person)),
+                        title: Text(
+                          "${staff[index].name}",
+                          style: theme.headlineMedium,
+                        ),
+                        subtitle: Text("${staff[index].role}"),
+                      ),
+                    ),
+                  );
+                },
+              )
+            : Center(
+                child: Text(
+                  "No staff member added",
+                  style: theme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-                subtitle: Text("${staff[index].role}"),
               ),
-            );
-          },
-        ),
       ),
     );
   }

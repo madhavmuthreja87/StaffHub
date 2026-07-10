@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:staffhub/core/app_color.dart';
+import 'package:staffhub/models/staff_model.dart';
+import 'package:staffhub/providers/staff_provider.dart';
+import 'package:staffhub/widgets/custom_text_field.dart';
 
 class StaffDetail extends StatefulWidget {
-  const StaffDetail({super.key});
+  final String name;
+
+  const StaffDetail({super.key, required this.name});
 
   @override
   State<StaffDetail> createState() => _StaffDetailState();
 }
 
 class _StaffDetailState extends State<StaffDetail> {
+  TextEditingController reasonController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final staff = context.watch<StaffProvider>().l;
+    StaffModel s = staff.firstWhere((staff) => staff.name == widget.name);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.background,
@@ -51,7 +61,7 @@ class _StaffDetailState extends State<StaffDetail> {
                     children: [
                       CircleAvatar(radius: 45, child: Icon(Icons.person)),
                       const SizedBox(height: 30),
-                      Text("Staff's name", style: theme.displaySmall),
+                      Text("${s.name}", style: theme.displaySmall),
                       Text(
                         'Staff Role',
                         style: theme.titleMedium?.copyWith(
@@ -150,7 +160,43 @@ class _StaffDetailState extends State<StaffDetail> {
                           backgroundColor: const Color.fromARGB(209, 255, 0, 0),
                           elevation: 20,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text("Marking Absent"),
+                                actions: [
+                                  CustomTextField(
+                                    title: 'Reason',
+                                    controller: reasonController,
+                                  ),
+
+                                  CustomTextField(
+                                    title: 'Date',
+                                    controller: dateController,
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      "Cancel",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {},
+                                    child: Text(
+                                      "Absent",
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
                         child: Text(
                           "Mark Absent",
                           style: theme.bodyLarge?.copyWith(
