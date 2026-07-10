@@ -5,9 +5,10 @@ class StaffModel {
   final String email;
   final String address;
   final String role;
-  final int salary;
+  final double salary;
   final String profileImage;
   final DateTime joiningDate;
+  final bool todayPresent;
 
   StaffModel({
     required this.staffid,
@@ -19,5 +20,6 @@ class StaffModel {
     required this.salary,
     required this.profileImage,
     required this.joiningDate,
+    required this.todayPresent,
   });
 }

@@ -4,8 +4,16 @@ import 'package:staffhub/core/app_theme.dart';
 import 'package:staffhub/widgets/custom_button.dart';
 import 'package:staffhub/widgets/custom_text_field.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   const SignUp({super.key});
+
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -73,12 +81,18 @@ class SignUp extends StatelessWidget {
                 SizedBox(height: 40),
                 Padding(
                   padding: const EdgeInsets.only(left: 24, right: 24.0),
-                  child: CustomTextField(title: 'Name'),
+                  child: CustomTextField(
+                    title: 'Name',
+                    controller: nameController,
+                  ),
                 ),
                 const SizedBox(height: 30),
                 Padding(
                   padding: const EdgeInsets.only(left: 24, right: 24.0),
-                  child: CustomTextField(title: 'Email'),
+                  child: CustomTextField(
+                    title: 'Email',
+                    controller: emailController,
+                  ),
                 ),
                 const SizedBox(height: 50),
                 Padding(

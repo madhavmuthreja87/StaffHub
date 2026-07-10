@@ -2,7 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:staffhub/core/app_color.dart';
+import 'package:staffhub/models/staff_model.dart';
+import 'package:staffhub/providers/staff_provider.dart';
 import 'package:staffhub/widgets/custom_button.dart';
 import 'package:staffhub/widgets/custom_text_field.dart';
 
@@ -14,6 +17,10 @@ class AddStaff extends StatefulWidget {
 }
 
 class _AddStaffState extends State<AddStaff> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController salaryController = TextEditingController();
+  TextEditingController dateofjoiningController = TextEditingController();
   File? selectedfile;
   final ImagePicker _picker = ImagePicker();
   Future<void> imagePicker() async {
@@ -58,49 +65,81 @@ class _AddStaffState extends State<AddStaff> {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
                 "Add Staff",
                 style: theme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
               ),
-              const SizedBox(height: 32),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: MediaQuery.sizeOf(context).width / 3,
-                ),
-                child: InkWell(
-                  onTap: () {
-                    imagePicker();
-                  },
-                  child: Container(
-                    height: 70,
-                    width: 70,
 
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: AppColor.greyish),
+              SizedBox(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        imagePicker();
+                      },
+                      child: Container(
+                        height: 70,
+                        width: 70,
 
-                      color: const Color.fromARGB(120, 255, 153, 0),
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 2, color: AppColor.greyish),
 
-                      borderRadius: BorderRadius.circular(12),
+                          color: const Color.fromARGB(120, 255, 153, 0),
+
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+
+                        child: Icon(Icons.add_a_photo_rounded),
+                      ),
                     ),
+                    const SizedBox(height: 18),
+                    CustomTextField(title: 'Name', controller: nameController),
+                    const SizedBox(height: 18),
+                    CustomTextField(
+                      title: 'Adress',
+                      controller: addressController,
+                    ),
+                    // const SizedBox(height: 18),
 
-                    child: Icon(Icons.add_a_photo_rounded),
-                  ),
+                    // CustomTextField(title: 'Role'),
+                    const SizedBox(height: 18),
+                    CustomTextField(
+                      title: 'Salary',
+                      controller: salaryController,
+                    ),
+                    const SizedBox(height: 18),
+                    CustomTextField(
+                      title: 'Date of joining',
+                      controller: dateofjoiningController,
+                    ),
+                    const SizedBox(height: 10),
+                  ],
                 ),
               ),
-              const SizedBox(height: 22),
-              CustomTextField(title: 'Name'),
-              const SizedBox(height: 22),
-              CustomTextField(title: 'Adress'),
-              const SizedBox(height: 22),
-
-              CustomTextField(title: 'Role'),
-              const SizedBox(height: 22),
-              CustomTextField(title: 'Salary'),
-              const SizedBox(height: 44),
 
               // CustomTextField(title: ''),
-              CustomButton(title: 'Add', onPressed: () {}),
+              CustomButton(
+                title: 'Add',
+                onPressed: () {
+                  StaffModel staff = StaffModel(
+                    name: nameController.text,
+                    address: addressController.text,
+                    joiningDate: DateTime.now(),
+                    salary: double.parse(salaryController.text),
+                    staffid: '',
+                    ownerid: '',
+                    email: '',
+                    role: '',
+                    profileImage: '',
+                    todayPresent: true,
+                  );
+                  context.read<StaffProvider>().AddStaff(staff);
+                  print("staff saved");
+                },
+              ),
             ],
           ),
         ),

@@ -39,7 +39,19 @@ class _StaffHomeScreenState extends State<StaffHomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Shop Name", style: theme.titleLarge),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Shop Name", style: theme.titleLarge),
+                Text(
+                  "[Staff]",
+                  style: theme.displaySmall?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 24,
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 8),
             Text(
               "Hi, Staff Name",
@@ -49,6 +61,28 @@ class _StaffHomeScreenState extends State<StaffHomeScreen> {
               ),
             ),
             const SizedBox(height: 30),
+            Container(
+              decoration: BoxDecoration(),
+              width: MediaQuery.sizeOf(context).width,
+              child: Card(
+                color: const Color.fromARGB(202, 252, 161, 23),
+                elevation: 8,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Today's Attendance", style: theme.headlineSmall),
+                      Text(
+                        "Present",
+                        style: theme.displayLarge?.copyWith(fontSize: 36),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -63,8 +97,11 @@ class _StaffHomeScreenState extends State<StaffHomeScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Staff", style: theme.headlineSmall),
-                          Text("8", style: theme.displayLarge),
+                          Text("Advance Taken", style: theme.headlineSmall),
+                          Text(
+                            "₹3400",
+                            style: theme.displayLarge?.copyWith(fontSize: 42),
+                          ),
                         ],
                       ),
                     ),
@@ -81,14 +118,59 @@ class _StaffHomeScreenState extends State<StaffHomeScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("On Leave", style: theme.headlineSmall),
-                          Text("2", style: theme.displayLarge),
+                          Text("Leave", style: theme.headlineSmall),
+                          Text(
+                            "2",
+                            style: theme.displayLarge?.copyWith(fontSize: 42),
+                          ),
                         ],
                       ),
                     ),
                   ),
                 ),
               ],
+            ),
+            Container(
+              decoration: BoxDecoration(),
+              width: MediaQuery.sizeOf(context).width,
+              child: Card(
+                color: const Color.fromARGB(202, 252, 161, 23),
+                elevation: 8,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Monthly Salary", style: theme.headlineSmall),
+                      Text(
+                        "₹12000",
+                        style: theme.displayLarge?.copyWith(fontSize: 44),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(),
+              width: MediaQuery.sizeOf(context).width,
+              child: Card(
+                color: const Color.fromARGB(202, 252, 161, 23),
+                elevation: 8,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Remaining amount", style: theme.headlineSmall),
+                      Text(
+                        "₹9600",
+                        style: theme.displayLarge?.copyWith(fontSize: 44),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:staffhub/core/app_theme.dart';
+import 'package:staffhub/providers/staff_provider.dart';
 import 'package:staffhub/screens/admin_panels/add_staff.dart';
 import 'package:staffhub/screens/admin_panels/admin_home_screen.dart';
 import 'package:staffhub/screens/admin_panels/staff_List.dart';
@@ -9,7 +11,7 @@ import 'package:staffhub/screens/sign_up.dart';
 import 'package:staffhub/screens/staff_panel/staff_home_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(Provider(create: (context) => StaffProvider(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -21,7 +23,41 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: AppTheme.lightTheme,
-      home: const StaffHomeScreen(),
+      home: const AdminNavBar(),
+    );
+  }
+}
+
+class AdminNavBar extends StatefulWidget {
+  const AdminNavBar({super.key});
+
+  @override
+  State<AdminNavBar> createState() => _AdminNavBarState();
+}
+
+class _AdminNavBarState extends State<AdminNavBar> {
+  List<Widget> adminscreens = [AdminHomeScreen(), StaffList(), AddStaff()];
+  int currentindex = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: adminscreens[currentindex],
+
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentindex,
+        onTap: (value) {
+          currentindex = value;
+          setState(() {});
+        },
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list_rounded),
+            label: "staff list",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "person"),
+        ],
+      ),
     );
   }
 }

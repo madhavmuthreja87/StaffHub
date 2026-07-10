@@ -39,7 +39,19 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Shop Name", style: theme.titleLarge),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Shop Name", style: theme.titleLarge),
+                Text(
+                  "[Owner]",
+                  style: theme.displaySmall?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 24,
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 8),
             Text(
               "Hi, Owner Name",

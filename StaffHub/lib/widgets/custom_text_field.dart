@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   final String title;
-  const CustomTextField({super.key, required this.title});
+  final TextEditingController controller;
+  const CustomTextField({
+    super.key,
+    required this.title,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
       child: TextField(
-        // controller: c,
+        controller: controller,
         decoration: InputDecoration(
           filled: true,
 
