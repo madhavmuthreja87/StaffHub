@@ -83,7 +83,10 @@ class SignUp extends StatelessWidget {
                 const SizedBox(height: 50),
                 Padding(
                   padding: const EdgeInsets.only(left: 24, right: 24.0),
-                  child: CustomButton(title: 'Create Account'),
+                  child: CustomButton(
+                    title: 'Create Account',
+                    onPressed: () {},
+                  ),
                 ),
               ],
             ),

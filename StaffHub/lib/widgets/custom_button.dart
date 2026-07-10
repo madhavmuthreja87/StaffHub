@@ -23,6 +23,8 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         style: ElevatedButton.styleFrom(
+          splashFactory: InkSplash.splashFactory,
+
           shadowColor: AppColor.textDark,
           backgroundColor: AppColor.orange,
           elevation: 6,
