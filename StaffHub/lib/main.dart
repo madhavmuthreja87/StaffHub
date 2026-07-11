@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:staffhub/core/app_theme.dart';
+import 'package:staffhub/providers/leave_provider.dart';
 import 'package:staffhub/providers/staff_provider.dart';
 import 'package:staffhub/screens/admin_panels/add_staff.dart';
 import 'package:staffhub/screens/admin_panels/admin_home_screen.dart';
@@ -11,7 +12,15 @@ import 'package:staffhub/screens/sign_up.dart';
 import 'package:staffhub/screens/staff_panel/staff_home_screen.dart';
 
 void main() {
-  runApp(Provider(create: (context) => StaffProvider(), child: const MyApp()));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => StaffProvider()),
+        ChangeNotifierProvider(create: (context) => LeaveProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -124,12 +125,13 @@ class _AddStaffState extends State<AddStaff> {
               CustomButton(
                 title: 'Add',
                 onPressed: () {
+                  int sid = Random().nextInt(10000);
                   StaffModel staff = StaffModel(
                     name: nameController.text,
                     address: addressController.text,
                     joiningDate: DateTime.now(),
                     salary: double.parse(salaryController.text),
-                    staffid: '',
+                    staffid: sid.toString(),
                     ownerid: '',
                     email: '',
                     role: '',
@@ -137,6 +139,16 @@ class _AddStaffState extends State<AddStaff> {
                     todayPresent: true,
                   );
                   context.read<StaffProvider>().AddStaff(staff);
+                  nameController.text = '';
+                  addressController.text = '';
+                  salaryController.text = '';
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: AppColor.primary,
+                      content: Text("New staff added"),
+                    ),
+                  );
                   print("staff saved");
                 },
               ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:staffhub/core/app_color.dart';
+import 'package:staffhub/providers/staff_provider.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({super.key});
@@ -12,6 +14,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final staff = context.watch<StaffProvider>().l;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.background,
@@ -76,7 +79,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("Staff", style: theme.headlineSmall),
-                          Text("8", style: theme.displayLarge),
+                          Text(
+                            staff.length.toString(),
+                            style: theme.displayLarge,
+                          ),
                         ],
                       ),
                     ),

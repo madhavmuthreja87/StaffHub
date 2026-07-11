@@ -45,8 +45,10 @@ class _StaffListState extends State<StaffList> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                StaffDetail(name: staff[index].name),
+                            builder: (context) => StaffDetail(
+                              name: staff[index].name,
+                              id: staff[index].staffid,
+                            ),
                           ),
                         );
                       },

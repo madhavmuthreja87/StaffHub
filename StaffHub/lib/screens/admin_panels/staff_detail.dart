@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:staffhub/core/app_color.dart';
+import 'package:staffhub/models/leave_model.dart';
 import 'package:staffhub/models/staff_model.dart';
+import 'package:staffhub/providers/leave_provider.dart';
 import 'package:staffhub/providers/staff_provider.dart';
 import 'package:staffhub/widgets/custom_text_field.dart';
 
 class StaffDetail extends StatefulWidget {
   final String name;
+  final String id;
 
-  const StaffDetail({super.key, required this.name});
+  const StaffDetail({super.key, required this.name, required this.id});
 
   @override
   State<StaffDetail> createState() => _StaffDetailState();
@@ -21,7 +24,13 @@ class _StaffDetailState extends State<StaffDetail> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
     final staff = context.watch<StaffProvider>().l;
+    final leave = context.watch<LeaveProvider>().l;
+
     StaffModel s = staff.firstWhere((staff) => staff.name == widget.name);
+    List<LeaveModel> lv = leave
+        .where((leave) => leave.staffid == widget.id)
+        .toList();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.background,
@@ -59,7 +68,15 @@ class _StaffDetailState extends State<StaffDetail> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      CircleAvatar(radius: 45, child: Icon(Icons.person)),
+                      GestureDetector(
+                        onTap: () {
+                          print(lv.length);
+                        },
+                        child: CircleAvatar(
+                          radius: 45,
+                          child: Icon(Icons.person),
+                        ),
+                      ),
                       const SizedBox(height: 30),
                       Text("${s.name}", style: theme.displaySmall),
                       Text(
@@ -75,6 +92,7 @@ class _StaffDetailState extends State<StaffDetail> {
                 Text("Holidays List", style: theme.headlineMedium),
 
                 Container(
+                  width: double.infinity,
                   decoration: BoxDecoration(
                     color: AppColor.greyish,
                     borderRadius: BorderRadius.circular(10),
@@ -82,52 +100,35 @@ class _StaffDetailState extends State<StaffDetail> {
                   height: MediaQuery.sizeOf(context).height / 3,
                   padding: EdgeInsets.all(8),
 
-                  child: ListView(
-                    children: [
-                      Card(
-                        child: ListTile(
-                          leading: Text("Date", style: TextStyle(fontSize: 18)),
-                          title: Text("Reason.............."),
+                  child: lv.length != 0
+                      ? ListView.builder(
+                          itemCount: lv.length,
+                          itemBuilder: (context, index) {
+                            return Card(
+                              child: ListTile(
+                                leading: Text(
+                                  lv[index].leavedate.toString().substring(
+                                    0,
+                                    10,
+                                  ),
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                title: Text(lv[index].reason),
+                              ),
+                            );
+                          },
+                        )
+                      //   // child:
+                      //   // ListTile(
+                      //   //   leading: Text(lv.leavedate.toString()),
+                      //   //   title: Text(lv.reason),
+                      //   // ),
+                      : Center(
+                          child: Text(
+                            "No leave in record",
+                            style: theme.headlineMedium,
+                          ),
                         ),
-                      ),
-                      Card(
-                        child: ListTile(
-                          leading: Text("Date", style: TextStyle(fontSize: 18)),
-                          title: Text("Reason.............."),
-                        ),
-                      ),
-                      Card(
-                        child: ListTile(
-                          leading: Text("Date", style: TextStyle(fontSize: 18)),
-                          title: Text("Reason.............."),
-                        ),
-                      ),
-                      Card(
-                        child: ListTile(
-                          leading: Text("Date", style: TextStyle(fontSize: 18)),
-                          title: Text("Reason.............."),
-                        ),
-                      ),
-                      Card(
-                        child: ListTile(
-                          leading: Text("Date", style: TextStyle(fontSize: 18)),
-                          title: Text("Reason.............."),
-                        ),
-                      ),
-                      Card(
-                        child: ListTile(
-                          leading: Text("Date", style: TextStyle(fontSize: 18)),
-                          title: Text("Reason.............."),
-                        ),
-                      ),
-                      Card(
-                        child: ListTile(
-                          leading: Text("Date", style: TextStyle(fontSize: 18)),
-                          title: Text("Reason.............."),
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -167,30 +168,64 @@ class _StaffDetailState extends State<StaffDetail> {
                               return AlertDialog(
                                 title: Text("Marking Absent"),
                                 actions: [
-                                  CustomTextField(
-                                    title: 'Reason',
-                                    controller: reasonController,
+                                  SizedBox(
+                                    height: 45,
+                                    child: CustomTextField(
+                                      title: 'Reason',
+                                      controller: reasonController,
+                                    ),
                                   ),
+                                  SizedBox(height: 22),
+                                  SizedBox(
+                                    height: 45,
+                                    child: CustomTextField(
+                                      title: 'Date of leave',
+                                      controller: dateController,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text(
+                                          "Cancel",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          LeaveModel leave = LeaveModel(
+                                            leaveid: '',
+                                            staffid: widget.id,
+                                            reason: reasonController.text,
+                                            leavedate: DateTime.now(),
+                                          );
 
-                                  CustomTextField(
-                                    title: 'Date',
-                                    controller: dateController,
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text(
-                                      "Cancel",
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      "Absent",
-                                      style: TextStyle(color: Colors.red),
-                                    ),
+                                          context
+                                              .read<LeaveProvider>()
+                                              .addLeave(leave);
+                                          Navigator.pop(context);
+                                          reasonController.text = '';
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              backgroundColor: Colors.redAccent,
+                                              content: Text("Absent marked"),
+                                            ),
+                                          );
+                                        },
+                                        child: Text(
+                                          "Absent",
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               );
