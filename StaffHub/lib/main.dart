@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:staffhub/core/app_theme.dart';
 import 'package:staffhub/providers/leave_provider.dart';
+import 'package:staffhub/providers/salary_provider.dart';
 import 'package:staffhub/providers/staff_provider.dart';
 import 'package:staffhub/screens/admin_panels/add_staff.dart';
 import 'package:staffhub/screens/admin_panels/admin_home_screen.dart';
@@ -17,6 +18,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (context) => StaffProvider()),
         ChangeNotifierProvider(create: (context) => LeaveProvider()),
+        ChangeNotifierProvider(create: (context) => SalaryProvider()),
       ],
       child: const MyApp(),
     ),

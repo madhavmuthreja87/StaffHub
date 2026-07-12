@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:staffhub/core/app_color.dart';
+import 'package:staffhub/models/salary_model.dart';
 import 'package:staffhub/models/staff_model.dart';
 import 'package:staffhub/providers/staff_provider.dart';
 import 'package:staffhub/widgets/custom_button.dart';
@@ -138,18 +139,27 @@ class _AddStaffState extends State<AddStaff> {
                     profileImage: '',
                     todayPresent: true,
                   );
+                  //adding data to provider
                   context.read<StaffProvider>().AddStaff(staff);
+                  SalaryModel salary = SalaryModel(
+                    salaryid: '',
+                    staffid: sid.toString(),
+                    salary: double.parse(salaryController.text),
+                    deduction: 0,
+                    ispaid: false,
+                  );
+                  //reassigning empty value to controller
                   nameController.text = '';
                   addressController.text = '';
                   salaryController.text = '';
-
+                  //For better UX
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: AppColor.primary,
                       content: Text("New staff added"),
                     ),
                   );
-                  print("staff saved");
+                  print("staff saved to staff provider and salary provider");
                 },
               ),
             ],

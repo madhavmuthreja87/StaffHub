@@ -100,7 +100,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("On Leave", style: theme.headlineSmall),
-                          Text("2", style: theme.displayLarge),
+                          Text("0", style: theme.displayLarge),
                         ],
                       ),
                     ),

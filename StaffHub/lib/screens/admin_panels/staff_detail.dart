@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:staffhub/core/app_color.dart';
 import 'package:staffhub/models/leave_model.dart';
+import 'package:staffhub/models/salary_model.dart';
 import 'package:staffhub/models/staff_model.dart';
 import 'package:staffhub/providers/leave_provider.dart';
+import 'package:staffhub/providers/salary_provider.dart';
 import 'package:staffhub/providers/staff_provider.dart';
 import 'package:staffhub/widgets/custom_text_field.dart';
 
@@ -20,13 +22,15 @@ class StaffDetail extends StatefulWidget {
 class _StaffDetailState extends State<StaffDetail> {
   TextEditingController reasonController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
     final staff = context.watch<StaffProvider>().l;
     final leave = context.watch<LeaveProvider>().l;
-
+    final salary = context.watch<SalaryProvider>().l;
     StaffModel s = staff.firstWhere((staff) => staff.name == widget.name);
+
     List<LeaveModel> lv = leave
         .where((leave) => leave.staffid == widget.id)
         .toList();
@@ -118,11 +122,6 @@ class _StaffDetailState extends State<StaffDetail> {
                             );
                           },
                         )
-                      //   // child:
-                      //   // ListTile(
-                      //   //   leading: Text(lv.leavedate.toString()),
-                      //   //   title: Text(lv.reason),
-                      //   // ),
                       : Center(
                           child: Text(
                             "No leave in record",
