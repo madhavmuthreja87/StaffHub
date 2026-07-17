@@ -73,10 +73,16 @@ class _StaffHomeScreenState extends State<StaffHomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Today's Attendance", style: theme.headlineSmall),
+                      Text(
+                        "Today's Attendance",
+                        style: theme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 19,
+                        ),
+                      ),
                       Text(
                         "Present",
-                        style: theme.displayLarge?.copyWith(fontSize: 36),
+                        style: theme.displayLarge?.copyWith(fontSize: 26),
                       ),
                     ],
                   ),

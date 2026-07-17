@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:staffhub/core/app_theme.dart';
 import 'package:staffhub/providers/leave_provider.dart';
+import 'package:staffhub/providers/salary_advance_provider.dart';
 import 'package:staffhub/providers/salary_provider.dart';
 import 'package:staffhub/providers/staff_provider.dart';
 import 'package:staffhub/screens/admin_panels/add_staff.dart';
@@ -19,6 +20,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => StaffProvider()),
         ChangeNotifierProvider(create: (context) => LeaveProvider()),
         ChangeNotifierProvider(create: (context) => SalaryProvider()),
+        ChangeNotifierProvider(create: (context) => SalaryAdvanceProvider()),
       ],
       child: const MyApp(),
     ),
@@ -56,17 +58,20 @@ class _AdminNavBarState extends State<AdminNavBar> {
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentindex,
+        elevation: 20,
+
         onTap: (value) {
           currentindex = value;
           setState(() {});
         },
+
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: " Home"),
           BottomNavigationBarItem(
             icon: Icon(Icons.list_rounded),
-            label: "staff list",
+            label: "Staff list",
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "person"),
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: "Add staff"),
         ],
       ),
     );

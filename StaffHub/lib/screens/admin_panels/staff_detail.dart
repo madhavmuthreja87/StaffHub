@@ -1,12 +1,17 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:staffhub/core/app_color.dart';
 import 'package:staffhub/models/leave_model.dart';
 import 'package:staffhub/models/salary_model.dart';
+import 'package:staffhub/models/salaryadvance_model.dart';
 import 'package:staffhub/models/staff_model.dart';
 import 'package:staffhub/providers/leave_provider.dart';
+import 'package:staffhub/providers/salary_advance_provider.dart';
 import 'package:staffhub/providers/salary_provider.dart';
 import 'package:staffhub/providers/staff_provider.dart';
+import 'package:staffhub/screens/admin_panels/leave_list_display.dart';
 import 'package:staffhub/widgets/custom_text_field.dart';
 
 class StaffDetail extends StatefulWidget {
@@ -22,7 +27,8 @@ class StaffDetail extends StatefulWidget {
 class _StaffDetailState extends State<StaffDetail> {
   TextEditingController reasonController = TextEditingController();
   TextEditingController dateController = TextEditingController();
-
+  TextEditingController amountController = TextEditingController();
+  TextEditingController salaryController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
@@ -36,6 +42,7 @@ class _StaffDetailState extends State<StaffDetail> {
         .toList();
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: AppColor.background,
         centerTitle: true,
@@ -63,7 +70,7 @@ class _StaffDetailState extends State<StaffDetail> {
           child: SizedBox(
             width: double.infinity,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
 
               children: [
@@ -77,15 +84,16 @@ class _StaffDetailState extends State<StaffDetail> {
                           print(lv.length);
                         },
                         child: CircleAvatar(
-                          radius: 45,
+                          radius: 42,
                           child: Icon(Icons.person),
                         ),
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 8),
                       Text("${s.name}", style: theme.displaySmall),
                       Text(
                         'Staff Role',
-                        style: theme.titleMedium?.copyWith(
+                        style: theme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.w800,
                           color: const Color.fromARGB(255, 169, 167, 167),
                         ),
                       ),
@@ -93,7 +101,7 @@ class _StaffDetailState extends State<StaffDetail> {
                   ),
                 ),
 
-                Text("Holidays List", style: theme.headlineMedium),
+                Text("Details List", style: theme.headlineMedium),
 
                 Container(
                   width: double.infinity,
@@ -101,33 +109,78 @@ class _StaffDetailState extends State<StaffDetail> {
                     color: AppColor.greyish,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  height: MediaQuery.sizeOf(context).height / 3,
-                  padding: EdgeInsets.all(8),
+                  height: MediaQuery.sizeOf(context).height / 3.05,
+                  padding: EdgeInsets.all(3),
 
-                  child: lv.length != 0
-                      ? ListView.builder(
-                          itemCount: lv.length,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              child: ListTile(
-                                leading: Text(
-                                  lv[index].leavedate.toString().substring(
-                                    0,
-                                    10,
-                                  ),
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                                title: Text(lv[index].reason),
+                  child: ListView(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          final absent = lv
+                              .where((element) => element.isFullDay == true)
+                              .toList();
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  LeaveListDisplay(items: absent),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          child: ListTile(
+                            title: Text(
+                              "Absent list",
+                              style: theme.headlineMedium?.copyWith(
+                                fontSize: 23,
                               ),
-                            );
-                          },
-                        )
-                      : Center(
-                          child: Text(
-                            "No leave in record",
-                            style: theme.headlineMedium,
+                            ),
+                            trailing: Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              color: const Color.fromARGB(255, 137, 134, 134),
+                            ),
                           ),
                         ),
+                      ),
+
+                      Card(
+                        child: ListTile(
+                          title: Text(
+                            "Halfday list",
+                            style: theme.headlineMedium?.copyWith(fontSize: 23),
+                          ),
+                          trailing: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: const Color.fromARGB(255, 137, 134, 134),
+                          ),
+                        ),
+                      ),
+                      Card(
+                        child: ListTile(
+                          title: Text(
+                            "Advance salary list",
+                            style: theme.headlineMedium?.copyWith(fontSize: 23),
+                          ),
+                          trailing: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: const Color.fromARGB(255, 137, 134, 134),
+                          ),
+                        ),
+                      ),
+                      Card(
+                        child: ListTile(
+                          title: Text(
+                            "Salary history list",
+                            style: theme.headlineMedium?.copyWith(fontSize: 23),
+                          ),
+                          trailing: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: const Color.fromARGB(255, 137, 134, 134),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -139,10 +192,334 @@ class _StaffDetailState extends State<StaffDetail> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           shadowColor: AppColor.textDark,
-                          backgroundColor: AppColor.orange,
-                          elevation: 20,
+                          backgroundColor: const Color.fromARGB(
+                            196,
+                            64,
+                            195,
+                            255,
+                          ),
+                          elevation: 8,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text("Pay salary"),
+                                actions: [
+                                  SizedBox(
+                                    height: 45,
+                                    child: CustomTextField(
+                                      title: 'salary amount',
+                                      controller: salaryController,
+                                      keyboardType: TextInputType.number,
+                                    ),
+                                  ),
+
+                                  SizedBox(height: 22),
+                                  SizedBox(
+                                    height: 45,
+                                    child: CustomTextField(
+                                      title: 'Date',
+                                      controller: dateController,
+                                      keyboardType: TextInputType.datetime,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text(
+                                          "Cancel",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                      ),
+                                      OutlinedButton(
+                                        onPressed: () {
+                                          int sid = Random().nextInt(10000);
+                                          SalaryModel salary = SalaryModel(
+                                            salaryid: sid.toString(),
+                                            staffid: widget.id,
+                                            salary:
+                                                double.tryParse(
+                                                  salaryController.text,
+                                                ) ??
+                                                0.0,
+                                            deduction: 0,
+                                            ispaid: true,
+                                          );
+                                          context
+                                              .read<SalaryProvider>()
+                                              .addSalary(salary);
+                                          Navigator.pop(context);
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                    196,
+                                                    64,
+                                                    195,
+                                                    255,
+                                                  ),
+                                              content: Text("Salary paid"),
+                                            ),
+                                          );
+                                        },
+                                        child: Text(
+                                          "Done",
+                                          style: TextStyle(
+                                            color: const Color.fromARGB(
+                                              196,
+                                              11,
+                                              119,
+                                              169,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Text(
+                          "Pay salary",
+                          style: theme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.sizeOf(context).width / 3,
+                      height: 55,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shadowColor: AppColor.textDark,
+                          backgroundColor: const Color.fromARGB(
+                            231,
+                            126,
+                            202,
+                            129,
+                          ),
+                          elevation: 8,
+                        ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text("Advance salary"),
+                                actions: [
+                                  SizedBox(
+                                    height: 45,
+                                    child: CustomTextField(
+                                      title: 'Reason',
+                                      controller: reasonController,
+                                    ),
+                                  ),
+
+                                  SizedBox(height: 22),
+                                  SizedBox(
+                                    height: 45,
+                                    child: CustomTextField(
+                                      title: 'Amount',
+                                      controller: amountController,
+                                      keyboardType: TextInputType.number,
+                                    ),
+                                  ),
+
+                                  SizedBox(height: 22),
+                                  SizedBox(
+                                    height: 45,
+                                    child: CustomTextField(
+                                      title: 'Date',
+                                      controller: dateController,
+                                      keyboardType: TextInputType.datetime,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text(
+                                          "Cancel",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                      ),
+                                      OutlinedButton(
+                                        onPressed: () {
+                                          int adsid = Random().nextInt(10000);
+                                          SalaryadvanceModel salaryadvance =
+                                              SalaryadvanceModel(
+                                                advancesalaryid: adsid
+                                                    .toString(),
+                                                staffid: widget.id,
+                                                amount:
+                                                    double.tryParse(
+                                                      amountController.text,
+                                                    ) ??
+                                                    0.0,
+                                                date: DateTime.now(),
+                                                reason: reasonController.text,
+                                              );
+                                          context
+                                              .read<SalaryAdvanceProvider>()
+                                              .addSalaryAdvance(salaryadvance);
+                                          Navigator.pop(context);
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                    231,
+                                                    126,
+                                                    202,
+                                                    129,
+                                                  ),
+                                              content: Text(
+                                                "Advance salary paid",
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Text(
+                                          "Done",
+                                          style: TextStyle(
+                                            color: const Color.fromARGB(
+                                              255,
+                                              44,
+                                              192,
+                                              49,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Text(
+                          "Advance salary",
+                          style: theme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.sizeOf(context).width / 3,
+                      height: 55,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shadowColor: AppColor.textDark,
+                          backgroundColor: AppColor.orange,
+                          elevation: 8,
+                        ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text("Marking Halfday"),
+                                actions: [
+                                  SizedBox(
+                                    height: 45,
+                                    child: CustomTextField(
+                                      title: 'Reason',
+                                      controller: reasonController,
+                                    ),
+                                  ),
+                                  SizedBox(height: 22),
+                                  SizedBox(
+                                    height: 45,
+                                    child: CustomTextField(
+                                      title: 'Date of leave',
+                                      controller: dateController,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text(
+                                          "Cancel",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                      ),
+                                      OutlinedButton(
+                                        onPressed: () {
+                                          LeaveModel leave = LeaveModel(
+                                            leaveid: '',
+                                            staffid: widget.id,
+                                            reason: reasonController.text,
+                                            isFullDay: false,
+                                            leavedate: DateTime.now(),
+                                          );
+
+                                          context
+                                              .read<LeaveProvider>()
+                                              .addLeave(leave);
+                                          Navigator.pop(context);
+                                          reasonController.text = '';
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                    219,
+                                                    255,
+                                                    153,
+                                                    0,
+                                                  ),
+                                              content: Text("Halfday marked"),
+                                            ),
+                                          );
+                                        },
+                                        child: Text(
+                                          "Halfday",
+                                          style: TextStyle(
+                                            color: AppColor.orange,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
                         child: Text(
                           "Mark Halfday",
                           style: theme.bodyLarge?.copyWith(
@@ -157,8 +534,8 @@ class _StaffDetailState extends State<StaffDetail> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           shadowColor: AppColor.textDark,
-                          backgroundColor: const Color.fromARGB(209, 255, 0, 0),
-                          elevation: 20,
+                          backgroundColor: Colors.redAccent,
+                          elevation: 8,
                         ),
                         onPressed: () {
                           showDialog(
@@ -196,12 +573,13 @@ class _StaffDetailState extends State<StaffDetail> {
                                           style: TextStyle(color: Colors.black),
                                         ),
                                       ),
-                                      TextButton(
+                                      OutlinedButton(
                                         onPressed: () {
                                           LeaveModel leave = LeaveModel(
                                             leaveid: '',
                                             staffid: widget.id,
                                             reason: reasonController.text,
+                                            isFullDay: true,
                                             leavedate: DateTime.now(),
                                           );
 

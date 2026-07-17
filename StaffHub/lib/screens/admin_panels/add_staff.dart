@@ -41,7 +41,6 @@ class _AddStaffState extends State<AddStaff> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: AppColor.background,
           centerTitle: true,
@@ -67,7 +66,7 @@ class _AddStaffState extends State<AddStaff> {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
                 "Add Staff",
@@ -111,6 +110,7 @@ class _AddStaffState extends State<AddStaff> {
                     CustomTextField(
                       title: 'Salary',
                       controller: salaryController,
+                      keyboardType: TextInputType.number,
                     ),
                     const SizedBox(height: 18),
                     CustomTextField(
