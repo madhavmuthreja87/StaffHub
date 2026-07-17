@@ -17,7 +17,7 @@ class _ListDisplayState extends State<LeaveListDisplay> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    final staff = context.watch<StaffProvider>().l;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.background,
