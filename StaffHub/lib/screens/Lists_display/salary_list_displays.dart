@@ -69,7 +69,7 @@ class _SalaryListDisplaysState extends State<SalaryListDisplays> {
                   )
                 : Center(
                     child: Text(
-                      'No absent in record',
+                      'No salary record',
                       style: TextStyle(
                         fontSize: 23,
                         fontWeight: FontWeight.w500,

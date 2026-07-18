@@ -297,6 +297,7 @@ class _StaffDetailState extends State<StaffDetail> {
                                           SalaryModel salary = SalaryModel(
                                             salaryid: sid.toString(),
                                             staffid: widget.id,
+                                            date: DateTime.now(),
                                             salary:
                                                 double.tryParse(
                                                   salaryController.text,

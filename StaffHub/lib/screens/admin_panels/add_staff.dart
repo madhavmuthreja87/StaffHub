@@ -145,6 +145,7 @@ class _AddStaffState extends State<AddStaff> {
                     salaryid: '',
                     staffid: sid.toString(),
                     salary: double.parse(salaryController.text),
+                    date: DateTime.now(),
                     deduction: 0,
                     ispaid: false,
                   );
