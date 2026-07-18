@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:staffhub/core/app_theme.dart';
 import 'package:staffhub/providers/leave_provider.dart';
@@ -12,8 +13,12 @@ import 'package:staffhub/screens/admin_panels/staff_List.dart';
 import 'package:staffhub/screens/admin_panels/staff_detail.dart';
 import 'package:staffhub/screens/sign_up.dart';
 import 'package:staffhub/screens/staff_panel/staff_home_screen.dart';
+import 'package:staffhub/services/hive_services.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await HiveServices().init();
+
   runApp(
     MultiProvider(
       providers: [
