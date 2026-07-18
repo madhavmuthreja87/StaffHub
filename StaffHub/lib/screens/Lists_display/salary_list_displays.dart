@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:staffhub/core/app_color.dart';
-import 'package:staffhub/models/salaryadvance_model.dart';
+import 'package:staffhub/models/salary_model.dart';
 
-class SalaryAdvanceListDiplays extends StatefulWidget {
-  final List<SalaryadvanceModel> items;
-  const SalaryAdvanceListDiplays({super.key, required this.items});
+class SalaryListDisplays extends StatefulWidget {
+  final List<SalaryModel> items;
+  const SalaryListDisplays({super.key, required this.items});
 
   @override
-  State<SalaryAdvanceListDiplays> createState() =>
-      _SalaryAdvanceListDeiplaysState();
+  State<SalaryListDisplays> createState() => _SalaryListDisplaysState();
 }
 
-class _SalaryAdvanceListDeiplaysState extends State<SalaryAdvanceListDiplays> {
+class _SalaryListDisplaysState extends State<SalaryListDisplays> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
@@ -57,24 +56,20 @@ class _SalaryAdvanceListDeiplaysState extends State<SalaryAdvanceListDiplays> {
                       return Card(
                         child: ListTile(
                           leading: Text(
-                            widget.items[index].date.toString().substring(
-                              0,
-                              10,
-                            ),
+                            widget.items[index].salary.toString(),
                             style: theme.titleLarge?.copyWith(fontSize: 20),
                           ),
-                          trailing: Text(
-                            widget.items[index].amount.toString(),
-                            style: theme.bodyLarge?.copyWith(fontSize: 24),
+                          title: Text(
+                            widget.items[index].staffid,
+                            style: theme.bodyLarge,
                           ),
-                          title: Text(widget.items[index].reason),
                         ),
                       );
                     },
                   )
                 : Center(
                     child: Text(
-                      'No advance salary in record',
+                      'No absent in record',
                       style: TextStyle(
                         fontSize: 23,
                         fontWeight: FontWeight.w500,

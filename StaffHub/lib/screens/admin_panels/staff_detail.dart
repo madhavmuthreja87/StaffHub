@@ -13,6 +13,7 @@ import 'package:staffhub/providers/salary_provider.dart';
 import 'package:staffhub/providers/staff_provider.dart';
 import 'package:staffhub/screens/Lists_display/leave_list_display.dart';
 import 'package:staffhub/screens/Lists_display/salary_advance_list_diplays.dart';
+import 'package:staffhub/screens/Lists_display/salary_list_displays.dart';
 import 'package:staffhub/widgets/custom_text_field.dart';
 
 class StaffDetail extends StatefulWidget {
@@ -45,6 +46,9 @@ class _StaffDetailState extends State<StaffDetail> {
 
     List<SalaryadvanceModel> sadv = salaryadvance
         .where((element) => element.staffid == widget.id)
+        .toList();
+    List<SalaryModel> sal = salary
+        .where((staff) => staff.staffid == widget.id)
         .toList();
 
     return Scaffold(
@@ -202,15 +206,28 @@ class _StaffDetailState extends State<StaffDetail> {
                           ),
                         ),
                       ),
-                      Card(
-                        child: ListTile(
-                          title: Text(
-                            "Salary history list",
-                            style: theme.headlineMedium?.copyWith(fontSize: 23),
-                          ),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            color: const Color.fromARGB(255, 137, 134, 134),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  SalaryListDisplays(items: sal),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          child: ListTile(
+                            title: Text(
+                              "Salary history list",
+                              style: theme.headlineMedium?.copyWith(
+                                fontSize: 23,
+                              ),
+                            ),
+                            trailing: Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              color: const Color.fromARGB(255, 137, 134, 134),
+                            ),
                           ),
                         ),
                       ),
