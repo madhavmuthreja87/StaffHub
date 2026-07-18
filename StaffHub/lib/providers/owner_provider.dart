@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 import 'package:staffhub/models/owner_model.dart';
 
 class OwnerProvider extends ChangeNotifier {
-  List<OwnerModel> _owner = [];
-  List<OwnerModel> get l => _owner;
+  final Box<OwnerModel> box = Hive.box<OwnerModel>("ownerBox");
+  List<OwnerModel> get l => box.values.toList();
+
   void AddOwner(OwnerModel owner) {
-    l.add(owner);
+    box.put(owner.ownerid, owner);
     notifyListeners();
   }
 }

@@ -20,6 +20,7 @@ class SalaryModel extends HiveObject {
 
   @HiveField(5)
   final bool ispaid;
+
   SalaryModel({
     required this.salaryid,
     required this.staffid,

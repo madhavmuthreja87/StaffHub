@@ -36,11 +36,12 @@ dependencies:
   cupertino_icons: ^1.0.8
   image_picker:  
   provider: 
+  
   hive:
   hive_flutter: 
   hive_generator: 
   build_runner:
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

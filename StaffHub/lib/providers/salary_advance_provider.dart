@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:staffhub/models/salaryadvance_model.dart';
 
 class SalaryAdvanceProvider extends ChangeNotifier {
-  List<SalaryadvanceModel> salaryadvance = [];
-  List<SalaryadvanceModel> get l => salaryadvance;
-
+  final Box<SalaryadvanceModel> box = Hive.box<SalaryadvanceModel>(
+    "salaryAdvanceBox",
+  );
+  List<SalaryadvanceModel> get l => box.values.toList();
   void addSalaryAdvance(SalaryadvanceModel salaryadvance) {
-    l.add(salaryadvance);
+    box.put(salaryadvance.advancesalaryid, salaryadvance);
     notifyListeners();
   }
 }
