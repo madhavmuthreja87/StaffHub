@@ -1,7 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:staffhub/core/app_theme.dart';
+import 'package:staffhub/firebase_options.dart';
 import 'package:staffhub/providers/leave_provider.dart';
 import 'package:staffhub/providers/salary_advance_provider.dart';
 import 'package:staffhub/providers/salary_provider.dart';
@@ -17,6 +19,8 @@ import 'package:staffhub/services/hive_services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await HiveServices().init();
 
   runApp(
