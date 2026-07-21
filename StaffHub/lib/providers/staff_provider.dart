@@ -6,7 +6,7 @@ class StaffProvider extends ChangeNotifier {
   final Box<StaffModel> box = Hive.box<StaffModel>("staffBox");
   List<StaffModel> get l => box.values.toList();
 
-  void AddStaff(StaffModel staff) {
+  void AddStaffToLocal(StaffModel staff) {
     box.put(staff.staffid, staff);
     notifyListeners();
   }

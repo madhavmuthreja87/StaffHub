@@ -97,9 +97,12 @@ class _AddStaffState extends State<AddStaff> {
                       ),
                     ),
                     const SizedBox(height: 18),
-                    CustomTextField(title: 'Name', controller: nameController),
+                    CustomTextFormField(
+                      title: 'Name',
+                      controller: nameController,
+                    ),
                     const SizedBox(height: 18),
-                    CustomTextField(
+                    CustomTextFormField(
                       title: 'Adress',
                       controller: addressController,
                     ),
@@ -107,13 +110,13 @@ class _AddStaffState extends State<AddStaff> {
 
                     // CustomTextField(title: 'Role'),
                     const SizedBox(height: 18),
-                    CustomTextField(
+                    CustomTextFormField(
                       title: 'Salary',
                       controller: salaryController,
                       keyboardType: TextInputType.number,
                     ),
                     const SizedBox(height: 18),
-                    CustomTextField(
+                    CustomTextFormField(
                       title: 'Date of joining',
                       controller: dateofjoiningController,
                     ),
@@ -140,7 +143,7 @@ class _AddStaffState extends State<AddStaff> {
                     todayPresent: true,
                   );
                   //adding data to provider
-                  context.read<StaffProvider>().AddStaff(staff);
+                  context.read<StaffProvider>().AddStaffToLocal(staff);
                   SalaryModel salary = SalaryModel(
                     salaryid: '',
                     staffid: sid.toString(),

@@ -7,7 +7,7 @@ class OwnerProvider extends ChangeNotifier {
   final Box<OwnerModel> box = Hive.box<OwnerModel>("ownerBox");
   List<OwnerModel> get l => box.values.toList();
 
-  void AddOwner(OwnerModel owner) {
+  void AddOwnerToLocal(OwnerModel owner) {
     box.put(owner.ownerid, owner);
     notifyListeners();
   }

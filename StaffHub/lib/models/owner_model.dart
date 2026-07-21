@@ -23,6 +23,9 @@ class OwnerModel {
 
   @HiveField(6)
   final String profileImage;
+
+  @HiveField(7)
+  final List<String> stafflist;
   OwnerModel({
     required this.ownerid,
     required this.name,
@@ -31,5 +34,6 @@ class OwnerModel {
     required this.shopaddress,
     required this.businesstype,
     required this.profileImage,
+    required this.stafflist,
   });
 }

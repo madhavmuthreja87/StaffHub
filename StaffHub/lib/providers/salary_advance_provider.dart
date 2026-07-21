@@ -7,7 +7,8 @@ class SalaryAdvanceProvider extends ChangeNotifier {
     "salaryAdvanceBox",
   );
   List<SalaryadvanceModel> get l => box.values.toList();
-  void addSalaryAdvance(SalaryadvanceModel salaryadvance) {
+
+  void addSalaryAdvanceToLocal(SalaryadvanceModel salaryadvance) {
     box.put(salaryadvance.advancesalaryid, salaryadvance);
     notifyListeners();
   }

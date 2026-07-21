@@ -261,7 +261,7 @@ class _StaffDetailState extends State<StaffDetail> {
                                 actions: [
                                   SizedBox(
                                     height: 45,
-                                    child: CustomTextField(
+                                    child: CustomTextFormField(
                                       title: 'salary amount',
                                       controller: salaryController,
                                       keyboardType: TextInputType.number,
@@ -271,7 +271,7 @@ class _StaffDetailState extends State<StaffDetail> {
                                   SizedBox(height: 22),
                                   SizedBox(
                                     height: 45,
-                                    child: CustomTextField(
+                                    child: CustomTextFormField(
                                       title: 'Date',
                                       controller: dateController,
                                       keyboardType: TextInputType.datetime,
@@ -308,7 +308,7 @@ class _StaffDetailState extends State<StaffDetail> {
                                           );
                                           context
                                               .read<SalaryProvider>()
-                                              .addSalary(salary);
+                                              .addSalaryToLocal(salary);
                                           Navigator.pop(context);
                                           ScaffoldMessenger.of(
                                             context,
@@ -375,7 +375,7 @@ class _StaffDetailState extends State<StaffDetail> {
                                 actions: [
                                   SizedBox(
                                     height: 45,
-                                    child: CustomTextField(
+                                    child: CustomTextFormField(
                                       title: 'Reason',
                                       controller: reasonController,
                                     ),
@@ -384,7 +384,7 @@ class _StaffDetailState extends State<StaffDetail> {
                                   SizedBox(height: 22),
                                   SizedBox(
                                     height: 45,
-                                    child: CustomTextField(
+                                    child: CustomTextFormField(
                                       title: 'Amount',
                                       controller: amountController,
                                       keyboardType: TextInputType.number,
@@ -394,7 +394,7 @@ class _StaffDetailState extends State<StaffDetail> {
                                   SizedBox(height: 22),
                                   SizedBox(
                                     height: 45,
-                                    child: CustomTextField(
+                                    child: CustomTextFormField(
                                       title: 'Date',
                                       controller: dateController,
                                       keyboardType: TextInputType.datetime,
@@ -432,7 +432,9 @@ class _StaffDetailState extends State<StaffDetail> {
                                               );
                                           context
                                               .read<SalaryAdvanceProvider>()
-                                              .addSalaryAdvance(salaryadvance);
+                                              .addSalaryAdvanceToLocal(
+                                                salaryadvance,
+                                              );
                                           Navigator.pop(context);
                                           ScaffoldMessenger.of(
                                             context,
@@ -502,7 +504,7 @@ class _StaffDetailState extends State<StaffDetail> {
                                 actions: [
                                   SizedBox(
                                     height: 45,
-                                    child: CustomTextField(
+                                    child: CustomTextFormField(
                                       title: 'Reason',
                                       controller: reasonController,
                                     ),
@@ -510,7 +512,7 @@ class _StaffDetailState extends State<StaffDetail> {
                                   SizedBox(height: 22),
                                   SizedBox(
                                     height: 45,
-                                    child: CustomTextField(
+                                    child: CustomTextFormField(
                                       title: 'Date of leave',
                                       controller: dateController,
                                     ),
@@ -541,7 +543,7 @@ class _StaffDetailState extends State<StaffDetail> {
 
                                           context
                                               .read<LeaveProvider>()
-                                              .addLeave(leave);
+                                              .addLeaveToLocal(leave);
                                           Navigator.pop(context);
                                           reasonController.text = '';
                                           ScaffoldMessenger.of(
@@ -599,7 +601,7 @@ class _StaffDetailState extends State<StaffDetail> {
                                 actions: [
                                   SizedBox(
                                     height: 45,
-                                    child: CustomTextField(
+                                    child: CustomTextFormField(
                                       title: 'Reason',
                                       controller: reasonController,
                                     ),
@@ -607,7 +609,7 @@ class _StaffDetailState extends State<StaffDetail> {
                                   SizedBox(height: 22),
                                   SizedBox(
                                     height: 45,
-                                    child: CustomTextField(
+                                    child: CustomTextFormField(
                                       title: 'Date of leave',
                                       controller: dateController,
                                     ),
@@ -638,7 +640,7 @@ class _StaffDetailState extends State<StaffDetail> {
 
                                           context
                                               .read<LeaveProvider>()
-                                              .addLeave(leave);
+                                              .addLeaveToLocal(leave);
                                           Navigator.pop(context);
                                           reasonController.text = '';
                                           ScaffoldMessenger.of(

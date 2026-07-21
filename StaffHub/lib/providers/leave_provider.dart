@@ -6,7 +6,7 @@ class LeaveProvider extends ChangeNotifier {
   final Box<LeaveModel> box = Hive.box("leaveBox");
   List<LeaveModel> get l => box.values.toList();
 
-  void addLeave(LeaveModel leave) {
+  void addLeaveToLocal(LeaveModel leave) {
     box.put(leave.leaveid, leave);
     notifyListeners();
   }

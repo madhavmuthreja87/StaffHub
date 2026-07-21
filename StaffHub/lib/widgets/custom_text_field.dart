@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextFormField extends StatelessWidget {
   final String title;
   final TextEditingController controller;
   final TextInputType keyboardType;
-  const CustomTextField({
+  final bool obscureText;
+  final String? Function(String?)? validator;
+
+  const CustomTextFormField({
     super.key,
     required this.title,
     required this.controller,
     this.keyboardType = TextInputType.text,
+    this.obscureText = false,
+    this.validator,
   });
 
   @override

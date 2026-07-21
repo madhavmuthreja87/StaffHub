@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:staffhub/core/app_theme.dart';
 import 'package:staffhub/firebase_options.dart';
 import 'package:staffhub/providers/leave_provider.dart';
+import 'package:staffhub/providers/owner_provider.dart';
 import 'package:staffhub/providers/salary_advance_provider.dart';
 import 'package:staffhub/providers/salary_provider.dart';
 import 'package:staffhub/providers/staff_provider.dart';
@@ -30,6 +31,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => LeaveProvider()),
         ChangeNotifierProvider(create: (context) => SalaryProvider()),
         ChangeNotifierProvider(create: (context) => SalaryAdvanceProvider()),
+        ChangeNotifierProvider(create: (context) => OwnerProvider()),
       ],
       child: const MyApp(),
     ),
@@ -46,7 +48,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
-      home: const AdminNavBar(),
+      home: const SignUp(),
     );
   }
 }

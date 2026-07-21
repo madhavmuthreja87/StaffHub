@@ -24,13 +24,14 @@ class OwnerModelAdapter extends TypeAdapter<OwnerModel> {
       shopaddress: fields[4] as String,
       businesstype: fields[5] as String,
       profileImage: fields[6] as String,
+      stafflist: (fields[7] as List).cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, OwnerModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.ownerid)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class OwnerModelAdapter extends TypeAdapter<OwnerModel> {
       ..writeByte(5)
       ..write(obj.businesstype)
       ..writeByte(6)
-      ..write(obj.profileImage);
+      ..write(obj.profileImage)
+      ..writeByte(7)
+      ..write(obj.stafflist);
   }
 
   @override

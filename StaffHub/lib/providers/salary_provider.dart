@@ -6,7 +6,7 @@ class SalaryProvider extends ChangeNotifier {
   final Box<SalaryModel> box = Hive.box<SalaryModel>("salaryBox");
   List<SalaryModel> get l => box.values.toList();
 
-  void addSalary(SalaryModel salary) {
+  void addSalaryToLocal(SalaryModel salary) {
     box.put(salary.salaryid, salary);
     notifyListeners();
   }
