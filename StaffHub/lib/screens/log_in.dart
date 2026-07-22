@@ -49,7 +49,7 @@ class _LogInState extends State<LogIn> {
         shopaddress: "",
       );
 
-      context.read<OwnerProvider>().AddOwner(owner);
+      context.read<OwnerProvider>().AddOwnerToLocal(owner);
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
