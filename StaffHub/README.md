@@ -1,4 +1,4 @@
-# staffhub
+# staffhub project
 
 A new Flutter project.
 
