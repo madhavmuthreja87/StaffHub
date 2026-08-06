@@ -324,6 +324,8 @@ class _StaffDetailState extends State<StaffDetail> {
                                               content: Text("Salary paid"),
                                             ),
                                           );
+                                          salaryController.clear();
+                                          dateController.clear();
                                         },
                                         child: Text(
                                           "Done",
@@ -452,6 +454,9 @@ class _StaffDetailState extends State<StaffDetail> {
                                               ),
                                             ),
                                           );
+                                          amountController.clear();
+                                          reasonController.clear();
+                                          dateController.clear();
                                         },
                                         child: Text(
                                           "Done",
@@ -560,6 +565,8 @@ class _StaffDetailState extends State<StaffDetail> {
                                               content: Text("Halfday marked"),
                                             ),
                                           );
+                                          reasonController.clear();
+                                          dateController.clear();
                                         },
                                         child: Text(
                                           "Halfday",
@@ -651,6 +658,8 @@ class _StaffDetailState extends State<StaffDetail> {
                                               content: Text("Absent marked"),
                                             ),
                                           );
+                                          reasonController.clear();
+                                          dateController.clear();
                                         },
                                         child: Text(
                                           "Absent",

@@ -48,6 +48,7 @@ class _SignUpState extends State<SignUp> {
         shopname: "",
         businesstype: "",
         shopaddress: "",
+        stafflist: ["zvzv"],
       );
 
       context.read<OwnerProvider>().AddOwnerToLocal(owner);

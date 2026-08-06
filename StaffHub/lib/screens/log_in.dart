@@ -47,6 +47,7 @@ class _LogInState extends State<LogIn> {
         shopname: "",
         businesstype: "",
         shopaddress: "",
+        stafflist: ["zvzv"],
       );
 
       context.read<OwnerProvider>().AddOwnerToLocal(owner);
