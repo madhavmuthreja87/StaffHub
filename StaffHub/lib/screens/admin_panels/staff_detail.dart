@@ -538,8 +538,9 @@ class _StaffDetailState extends State<StaffDetail> {
                                       ),
                                       OutlinedButton(
                                         onPressed: () {
+                                          int leaveId = Random().nextInt(1000);
                                           LeaveModel leave = LeaveModel(
-                                            leaveid: '',
+                                            leaveid: leaveId.toString(),
                                             staffid: widget.id,
                                             reason: reasonController.text,
                                             isFullDay: false,
@@ -637,8 +638,9 @@ class _StaffDetailState extends State<StaffDetail> {
                                       ),
                                       OutlinedButton(
                                         onPressed: () {
+                                          int leaveID = Random().nextInt(1000);
                                           LeaveModel leave = LeaveModel(
-                                            leaveid: '',
+                                            leaveid: leaveID.toString(),
                                             staffid: widget.id,
                                             reason: reasonController.text,
                                             isFullDay: true,
