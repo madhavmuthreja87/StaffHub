@@ -142,8 +142,11 @@ class _AddStaffState extends State<AddStaff> {
                     profileImage: '',
                     todayPresent: true,
                   );
+
                   //adding data to provider
                   context.read<StaffProvider>().AddStaffToLocal(staff);
+                  context.read<StaffProvider>().AddStaffToFireBase(staff);
+
                   SalaryModel salary = SalaryModel(
                     salaryid: '',
                     staffid: sid.toString(),
@@ -153,9 +156,9 @@ class _AddStaffState extends State<AddStaff> {
                     ispaid: false,
                   );
                   //reassigning empty value to controller
-                  nameController.text = '';
-                  addressController.text = '';
-                  salaryController.text = '';
+                  nameController.clear();
+                  addressController.clear();
+                  salaryController.clear();
                   //For better UX
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
