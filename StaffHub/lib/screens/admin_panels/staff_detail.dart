@@ -550,8 +550,12 @@ class _StaffDetailState extends State<StaffDetail> {
                                           context
                                               .read<LeaveProvider>()
                                               .addLeaveToLocal(leave);
+                                          context
+                                              .read<LeaveProvider>()
+                                              .AddLeaveToFireBase(leave);
+
                                           Navigator.pop(context);
-                                          reasonController.text = '';
+                                          reasonController.clear();
                                           ScaffoldMessenger.of(
                                             context,
                                           ).showSnackBar(
@@ -650,6 +654,10 @@ class _StaffDetailState extends State<StaffDetail> {
                                           context
                                               .read<LeaveProvider>()
                                               .addLeaveToLocal(leave);
+                                          context
+                                              .read<LeaveProvider>()
+                                              .AddLeaveToFireBase(leave);
+
                                           Navigator.pop(context);
                                           reasonController.text = '';
                                           ScaffoldMessenger.of(
