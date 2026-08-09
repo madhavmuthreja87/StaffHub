@@ -52,6 +52,7 @@ class _SignUpState extends State<SignUp> {
       );
 
       context.read<OwnerProvider>().AddOwnerToLocal(owner);
+      context.read<OwnerProvider>().AddOwnerToFireBase(owner);
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
