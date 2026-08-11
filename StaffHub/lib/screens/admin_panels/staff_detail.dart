@@ -432,11 +432,18 @@ class _StaffDetailState extends State<StaffDetail> {
                                                 date: DateTime.now(),
                                                 reason: reasonController.text,
                                               );
+
                                           context
                                               .read<SalaryAdvanceProvider>()
                                               .addSalaryAdvanceToLocal(
                                                 salaryadvance,
                                               );
+                                          context
+                                              .read<SalaryAdvanceProvider>()
+                                              .addSalaryAdvanceToFireBase(
+                                                salaryadvance,
+                                              );
+
                                           Navigator.pop(context);
                                           ScaffoldMessenger.of(
                                             context,
